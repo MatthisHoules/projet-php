@@ -12,7 +12,7 @@ final class Config {
 
     // Database
     const DB_HOST = 'localhost:3306';
-    const DB_NAME = 'php-projet';
+    const DB_NAME = 'php';
     const DB_USER = 'root';
     const DB_PWD = '';
 

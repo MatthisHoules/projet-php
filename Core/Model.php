@@ -26,12 +26,12 @@ abstract class Model {
      */
     protected static function DBConnect() {
         try {
-            $dsn = 'mysql:host=' . Config::DB_HOST . ';dbname=' . Config::DB_NAME . ';charset=utf8';
+            $dsn = 'mysql:host=' . Config::DB_HOST . ';dbname=' . Config::DB_NAME . ';charset=utf8mb4';
     
             $database = new PDO($dsn, Config::DB_USER, Config::DB_PWD);
     
             $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
+
             return $database;
         } catch(PDOException $e) {
             die('Erreur : ' . $e->getMessage());
