@@ -8,8 +8,10 @@
 * 
 */
 require_once __DIR__.'/../../Core/Model.php';
-require_once __DIR__.'/TwitterInformation.php';
-require_once __DIR__.'/RSSInformation.php';
+require_once __DIR__.'/SourceFrom/RSS.php';
+require_once __DIR__.'/SourceFrom/Twitter.php';
+require_once __DIR__.'/SourceFrom/MailInfo.php';
+
 
 class Source extends Model {
     protected $id;
@@ -23,6 +25,45 @@ class Source extends Model {
         $this->value = $value;
         $this->name = $name;
     } // function __construct($id, $from, $value)
+
+
+    /**
+     * @name : save
+     * 
+     * @brief : insert in database a new source
+     * 
+     */
+    public function save() {
+
+        $DB = static::DBConnect();
+        $stmt = $DB->prepare('INSERT INTO `source` (`source_id`, `category_id`, `source_from`, `source_value`, `source_name`) 
+                              VALUES (NULL, ?, ?, ?, ?);');
+        $stmt->execute(array(
+            $_GET['category'],
+            $this->getFrom(),
+            $this->getValue(),
+            $this->getName()
+        ));
+
+    } // public function save()
+
+
+
+    public static function delete($source_id) {
+        $DB = static::DBConnect();
+        $stmt = $DB->prepare('DELETE FROM `information`
+                                WHERE `information`.`source_id` = ?');
+        $stmt->execute(array(
+            $source_id
+        ));
+        $stmt = $DB->prepare('DELETE FROM `source`
+                              WHERE `source`.`source_id` = ?');
+        $stmt->execute(array(
+            $source_id
+        ));
+
+        
+    } // public function remove
 
 
     /**
@@ -60,22 +101,106 @@ class Source extends Model {
     } // public static function getCategorySources($category_id)
 
 
-    /**
-     * @name : retreiveInformations
-     * @param : void
-     * @return : array of Informations sobjects
-     * @brief : get Informations
-     */
-    public function retreiveInformations() {
-        if ($this->getFrom() == 'TWITTER') {
-            $var = TwitterInformation::compute($this);
-            return $var;
-        
-        } else if ($this->getFrom() == 'RSS') {
-            return RSSInformation::compute($this);
-        }
-    } // public function retreiveInformations()
+    public function updateInformation() {
+        // get last source entry
+        $DB = static::DBConnect();
+        $stmt = $DB->prepare('SELECT MAX(information_date) as lastEntry
+                              FROM `information`
+                              WHERE `information`.`source_id` = ?');
+        $stmt->execute(array(
+            $this->getId()
+        ));
 
+        $result = $stmt->fetch()['lastEntry'];
+        if (is_null($result)) $result = 0; // if no entries in database
+
+        if ($this->getFrom() == 'TWITTER') {
+            $twitter = new Twitter($this->getValue());
+            $twitter->compute($this, $result);
+        } else if ($this->getFrom() == 'RSS'){
+            $rss = new RSS($this->getValue());
+            $rss->compute($this, $result);
+        } else {
+            MailInfo::compute($this, $result);
+        }
+    } // public function updateInformation()
+
+
+    public function getInformations() {
+        $DB = static::DBConnect();
+        $stmt = $DB->prepare('SELECT * 
+                              FROM `information`
+                              WHERE `information`.`source_id` = ?
+                              AND `information`.`isRead` = 0');
+        $stmt->execute(array(
+            $this->getId()
+        ));
+        $results = $stmt->fetchAll();
+
+        $listInformations = array();
+        foreach ($results as $key => $value) {
+            array_push($listInformations, new Information(
+                $value['information_id'],
+                $this,
+                $value['information_name'],
+                $value['information_value'],
+                $value['information_details'],
+                $value['information_date'],
+                $value['img'],
+                $value['isRead']
+            ));
+        }
+        return $listInformations;
+    } // public function getInformations()
+
+
+    public function getFavInformations() {
+        $DB = static::DBConnect();
+        $stmt = $DB->prepare('SELECT * 
+                              FROM `information`
+                              WHERE `information`.`fav` IS NOT NULL
+                              AND `information`.`source_id` = ?
+                              ORDER BY `information`.`fav` DESC');
+
+        $stmt->execute(array(
+            $this->getId()
+        ));
+        $results = $stmt->fetchAll();
+
+        $listInformations = array();
+        foreach ($results as $key => $value) {
+            array_push($listInformations, new Information(
+                $value['information_id'],
+                $this,
+                $value['information_name'],
+                $value['information_value'],
+                $value['information_details'],
+                $value['information_date'],
+                $value['img'],
+                $value['isRead']
+            ));
+            $listInformations[sizeof($listInformations) -1]->setFavC($value['fav']);
+        }
+        
+        return $listInformations;
+    } // public function getFavInformations()
+
+    public static function SourceBelongsUser($source_id, $user_id) {
+        $DB = static::DBConnect();
+        $stmt = $DB->prepare('SELECT count(*) as isExist
+                        FROM `source`
+                        JOIN `category` ON `category`.`category_id` = `source`.`category_id`
+                        WHERE `source`.`source_id` = ?
+                        AND `category`.`user_id` = ?');
+        $stmt->execute(array(
+            $source_id,
+            $user_id
+        ));
+
+        $result = $stmt->fetch()['isExist'];
+        if ($result == 0) return false;
+        return true;
+    } // public static function SourceBelongsUser($source_id, $user_id)
 
 
     public function getId(){
@@ -103,7 +228,7 @@ class Source extends Model {
     }
     
     public function getName(){
-		return $this->value;
+		return $this->name;
 	}
 
 	public function setName($name){
