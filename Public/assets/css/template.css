@@ -18,10 +18,152 @@ html,body {
 
 main {
     width : 100vw;
-    max-width : 1024px;
     display : flex;
     flex-direction : column;
     align-items :center;
     margin-left : auto;
     margin-right : auto;
+}
+
+.noDisplay {
+    display : none !important;
+}
+
+input:focus {
+    outline : none;
+}
+
+/* 
+    header
+*/
+header {
+    width : 100vw;
+    height : 50px;
+
+    display : flex;
+    flex-direction : row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.headerlogo {
+    height : 40px;
+}
+
+#navbarBtn {
+    background : none;
+    border : none;
+    height : 100%;
+
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size : 30px;
+
+    transition : 0.2s;
+
+    color : #2eeb8c;
+}
+#navbarBtn:hover {
+    transform : rotate(90deg);
+    transition : 0.2s;
+    cursor : pointer;
+}
+#navbarBtn:focus {
+    outline : none;
+}
+
+/* 
+    sidebar
+*/
+#closeBtn {
+    font-size : 30px;
+    background : none;
+    border : none;
+
+    position: absolute;
+    top : 10px;
+    left : 20px;
+
+    color : #fff;
+}
+.navbarContainer {
+    width : 320px;
+    height : 100vh;
+
+    position : fixed;
+    right : -320px;
+    top : 0;
+    z-index : 10;
+
+    background-color : #212121;
+
+    transition : 0.5s;
+}
+#navbarC.display {
+    right : 0;
+}
+.navbar {
+    width : 100%;
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+
+    margin-top : 50px;
+
+    position : relative;
+
+}
+.navLink {
+    width : 100%;
+    display : flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    font-size : 20px;
+
+    text-align: center;
+
+    color : #fff;
+    text-decoration: none;
+
+    padding-top : 10px;
+    padding-bottom : 10px;
+}
+.navLink i {
+    width : 70px;
+    margin-left : 20px;
+
+    color : #2eeb8c;
+}
+
+.subLink {
+    font-size : 15px;
+    padding-top : 5px;
+    padding-bottom : 5px;
+}
+.navTitle {
+    font-size : 25px;
+    color : #2eeb8c;
+    margin-top : 20px;
+}
+
+.categLink {
+    margin-top : 10px;
+}
+
+.navLink:hover {
+    background-color : rgba(255,255,255,0.1);
+}
+
+#closeBtn {
+    cursor : pointer;
+}
+#closeBtn:hover {
+    color : #2eeb8c;
+}
+#closeBtn:focus {
+    outline : none;
 }

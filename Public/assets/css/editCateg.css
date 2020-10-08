@@ -1,0 +1,164 @@
+
+.sourceList {
+    width : 100%;
+}
+
+.list {
+    width : 100%;
+    margin-right : auto;
+    margin-left : auto;
+
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    padding-top : 10px;
+    padding-bottom : 10px;
+    border-bottom : 1px solid #aaaaaa;
+}
+
+.list div {
+    word-wrap: break-word;
+    width : 33%;
+    min-width : 320px;
+}
+
+.listTitle {
+    font-size : 20px;
+}
+.listValue {
+    font-size : 12px;
+}
+
+.deleteSourceButton, .deleteCateg {
+    background : none;
+    border : 2px solid #c23616;
+    color : #c23616;
+    width : 200px;
+    padding : 10px;
+
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    cursor : pointer;
+
+    transition : 0.2s;
+}
+.deleteSourceButton:hover, .deleteCateg {
+    color : #9e2c12;
+    border-color: #9e2c12;
+    transition : 0.2s;
+}
+
+
+.deleteSourceButton i {
+    font-size : 17px;
+}
+
+
+.addSourceC {
+    margin-top : 10px;
+
+    width : 90vw;
+    max-width : 1000px;
+    padding:  10px;
+    min-width : 300px;
+
+    padding-bottom : 20px;
+    border-bottom : 1px solid #aaaaaa;
+}
+.addSourceC form {
+    width : 100%;
+    display : flex;
+    flex-direction : row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.twitterType {
+    background : #26de81;
+    padding : 10px;
+    font-size : 15px;
+    border : 3px solid #26de81;
+    color : #000;
+    border-right : none;
+}
+.valueAddTwt {
+    border : 3px solid #26de81;
+    padding : 10px;
+    font-size : 15px;
+}
+.sourceName {
+    margin-left : 15px;
+}
+.twtTV {
+    display : flex;
+    flex-direction: row;
+}
+.nameAddtwt {
+    border : 3px solid #26de81;
+    padding  : 10px;
+    font-size : 15px;
+    margin-left : 10px;
+    margin-right : 10px;
+}
+
+.twitteradds, .rssbtn {
+    background-color : #26de81;
+    color : #000;
+    border : 3px solid #26de81;
+    padding  : 10px;
+    font-size : 15px;
+    cursor : pointer;
+    transition : 0.2s;
+}
+
+button[type="submit"]:hover {
+    transform: translateX(5px);
+}
+
+input, select, button {
+    margin-top : 10px;
+}
+
+.rssItem {
+    padding : 10px;
+    color : #000;
+    border: 3px solid #26de81;
+    margin : 10px;
+}
+
+
+.addSourceMail {
+    margin-top : 20px;
+    margin-bottom  : 10px;
+
+    padding-bottom : 20px;
+
+    display : flex;
+    flex-direction: row;
+    justify-content: center;
+    border-bottom : 1px solid #aaaaaa;
+}
+.addSourceMail a {
+    padding  : 10px;
+    color : #000;
+    border : 3px solid #26de81;
+    font-weight: 500;
+    text-decoration: none;
+    transition : 0.2s;
+}
+.addSourceMail a:hover {
+    transform: translateX(5px);
+    transition : 0.2s;
+}
+
+.deleteSourceC {
+    display : flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin-bottom : 20px;
+}

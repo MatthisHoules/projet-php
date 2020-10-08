@@ -1,0 +1,47 @@
+form {
+    display : flex;
+    flex-direction : column;
+}
+
+form div {
+    margin-top : 20px;
+    margin-bottom : 10px;
+
+    display : flex;
+    flex-direction: column;
+}
+
+form div label {
+    font-size : 13px;
+}
+
+input, select {
+    padding : 10px;
+    font-size : 15px;
+
+    margin-bottom : 10px;
+
+    border : 2px solid #20bf6b;
+}
+
+.submit {
+    background-color : #26de81;
+    padding : 10px;
+
+    margin-top : 10px;
+    border : none;
+
+    transition : 0.2s;
+}
+.submit:hover {
+    background-color : #22b66c;
+    cursor : pointer;
+    transform: translateY(5px);
+}
+
+.warning {
+    margin-top : 20px;
+    margin-bottom : 10px;
+
+    font-size : 20px;
+}

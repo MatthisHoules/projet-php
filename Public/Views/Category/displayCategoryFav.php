@@ -17,7 +17,7 @@
 <main>
     <div class="categoryInformation">
         <h1 class="categoryName">
-            <?= $category->getName()?> <span> - Flash Info</span>
+            <?= $category->getName() ?> <span> - Favoris</span>
         </h1>
         <a class="editCategLink" href="/php/editCategory?category=<?=$category->getId()?>">
             <i class="fas fa-cog"></i>
@@ -29,6 +29,7 @@
         <a href="/php/category?category=<?=$_GET['category']?>" class="categoryL"><i class="fas fa-bullhorn"></i> Flash Infos</a>
         <a href="/php/fav?category=<?=$_GET['category']?>" class="categoryL"><i class="fas fa-heart"></i> Favoris</a>
     </div>
+
 
     <div class="informationsList">
         <?php foreach ($category->getListInformations() as $key => $info) { ?>
@@ -59,9 +60,7 @@
                 <div class="shareC">
                     <form action="" method="post">
                         <input type="hidden" name="id" value="<?=$info->getId()?>">
-                        <button type="submit" class="submitP" name="submit" value="read"><i class="far fa-eye"></i><span>Lu</span></button>
-                        <button type="submit" class="submitP" name="submit" value="fav"><i class="far fa-heart"></i> <span>Favoris</span></button>
-                        <button type="submit" class="submitP" name="submit" value="blog"><i class="far fa-plus-square"></i><span>Blog</span></button>
+                        <button type="submit" class="submitP" name="submit" value="fav"><i class="fas fa-heart-broken"></i><span>Favoris</span></button>
                     </form>
                 </div>
 
@@ -79,8 +78,6 @@
                 <?= $info->getValue()?> <br>
             </p>
 
-
-
             <?php
                 if ($info->getSource()->getFrom() == 'RSS') {
             ?>
@@ -88,17 +85,23 @@
             <?php 
                 } 
             ?>
-
             <div class="bottomArticle">
-                <div>
+                <div class="shareC">
                     <i class="fas fa-share-alt"></i>
                     <p class="linkShare">
                         http://localhost/php/article?article=<?=$info->getId()?>
                     </p>
                 </div>
+                <div class="sinceC">
+                    <i class="far fa-heart"></i>
+                    <p>
+                        Favoris depuis le <?= date('d/m/Y H:i:s', $info->getFav()) ?>
+                    </p>
+                </div>
             </div>
         </div>
         <?php } ?>
+
     </div>
     <div class="moreButtonC">
         <button id="moreButton">

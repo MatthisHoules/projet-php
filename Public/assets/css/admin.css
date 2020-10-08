@@ -1,0 +1,62 @@
+table {
+    width : 100%;
+    border-collapse: collapse;
+
+    margin-top : 25px;
+
+}
+
+main {
+    max-width : 1000px;
+    width : 90vw;
+    margin-left : auto;
+    margin-right : auto;
+}
+
+thead {
+    background-color : #acacac;
+}
+
+thead td {
+    padding-top : 20px;
+    padding-bottom : 20px;
+    text-align: center;
+}
+
+tbody tr td{
+    padding-top : 10px;
+    padding-bottom : 10px;
+
+    text-align: center;
+}
+
+tbody tr:nth-of-type(odd) {
+    background-color : #e1e1e1;
+}
+
+.actionC {
+    display : flex;
+    flex-direction : row;
+    justify-content: space-around;
+}
+
+button[type="submit"] {
+    background : none;
+    border : 2px solid #c0392b;
+    color : #c0392b;
+    padding : 5px;
+    cursor : pointer;
+}
+
+.green {
+    color : #05c46b;
+}
+.red {
+    color : #ff3f34;
+}
+.blue {
+    color : #3c40c6;
+}
+.orange {
+    color : #ffa801;
+}
