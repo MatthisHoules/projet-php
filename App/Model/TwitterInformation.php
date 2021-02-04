@@ -10,7 +10,7 @@ require_once __DIR__.'/../../Core/Model.php';
 require_once __DIR__.'/Information.php';
 require_once __DIR__.'/../../Core/TwitterApi.php';
 
-class TwitterInformation extends Model implements Information {
+class TwitterInformation extends Model {
 
     protected $source;
     protected $name;
