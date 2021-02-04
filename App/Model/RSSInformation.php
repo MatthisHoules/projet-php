@@ -9,7 +9,7 @@
 require_once __DIR__.'/../../Core/Model.php';
 require_once __DIR__.'/Information.php';
 
-class RSSInformation extends Model implements Information {
+class RSSInformation extends Model  {
 
     protected $source;
     protected $name;
